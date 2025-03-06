@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Plan Selection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: white;
+        }
+        .membership-card {
+            transition: all 0.3s ease;
+        }
+        .membership-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6 space-y-6">
+        <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">Select Membership Plan</h1>
+        
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Membership Plans</label>
+                <select id="planSelect" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select a plan</option>
+                    <option value="basic">Basic Plan ($9.99/month)</option>
+                    <option value="pro">Pro Plan ($19.99/month)</option>
+                    <option value="premium">Premium Plan ($29.99/month)</option>
+                </select>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Membership Fee</label>
+                <div id="feeDisplay" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-600">
+                    Fee will be displayed here
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Terms & Conditions</label>
+                <div class="p-4 h-40 overflow-y-auto bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-600">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="termsCheckbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                <label for="termsCheckbox" class="text-sm text-gray-700">I have read the Terms & Conditions</label>
+            </div>
+
+            <button id="paymentButton" disabled class="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
+                Make Payment
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const planSelect = document.getElementById('planSelect');
+        const feeDisplay = document.getElementById('feeDisplay');
+        const termsCheckbox = document.getElementById('termsCheckbox');
+        const paymentButton = document.getElementById('paymentButton');
+
+        const fees = {
+            'basic': '$9.99/month',
+            'pro': '$19.99/month',
+            'premium': '$29.99/month'
+        };
+
+        planSelect.addEventListener('change', (e) => {
+            const selectedPlan = e.target.value;
+            feeDisplay.textContent = selectedPlan ? fees[selectedPlan] : 'Fee will be displayed here';
+            updatePaymentButton();
+        });
+
+        termsCheckbox.addEventListener('change', () => {
+            updatePaymentButton();
+        });
+
+        function updatePaymentButton() {
+            paymentButton.disabled = !planSelect.value || !termsCheckbox.checked;
+        }
+
+        paymentButton.addEventListener('click', () => {
+            if (!paymentButton.disabled) {
+                alert('Proceeding to payment for ' + planSelect.options[planSelect.selectedIndex].text);
+            }
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
